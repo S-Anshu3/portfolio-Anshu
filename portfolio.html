@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anshu Chaurasiya— Software Engineer</title>
+<meta name="description" content="Portfolio of Anshu Chaurasiya, Computer Science Engineering student and aspiring software engineer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0c10;
+    --bg-elevated:#11151c;
+    --bg-hover:#161b23;
+    --border:#1f2530;
+    --text:#d8dee9;
+    --text-dim:#7b8394;
+    --text-faint:#4b5263;
+    --add-bg:#0d1f14;
+    --add:#6ee7a0;
+    --add-line:#12291a;
+    --del-bg:#241012;
+    --del:#f2777a;
+    --del-line:#2b1416;
+    --accent:#7dd3fc;
+    --accent-dim:#2c5972;
+    --purple:#c4a7f7;
+    --mono:'JetBrains Mono', ui-monospace, monospace;
+    --sans:'Inter', sans-serif;
+    --radius:6px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    font-size:15px;
+  }
+  a{color:inherit; text-decoration:none;}
+  ::selection{background:var(--accent-dim); color:#fff;}
+
+  a:focus-visible, button:focus-visible, .file-tree a:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:2px;
+  }
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    border-bottom:1px solid var(--border);
+    background:var(--bg-elevated);
+    padding:14px 24px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--text-dim);
+    position:sticky;
+    top:0;
+    z-index:50;
+  }
+  
+  
+  .topbar .branch svg{width:14px; height:14px; fill:var(--purple);}
+
+  /* ---------- hero / repo header ---------- */
+  .hero{
+    max-width:960px;
+    margin:0 auto;
+    padding:56px 24px 40px;
+    border-bottom:1px solid var(--border);
+  }
+  .hero .eyebrow{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--add);
+    margin-bottom:14px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .hero .eyebrow .cursor{
+    display:inline-block;
+    width:8px; height:16px;
+    background:var(--add);
+    animation:blink 1.1s steps(1) infinite;
+  }
+  @media (prefers-reduced-motion: reduce){.hero .eyebrow .cursor{animation:none;}}
+  @keyframes blink{50%{opacity:0;}}
+  .hero h1{
+    font-family:var(--mono);
+    font-size:clamp(32px, 5vw, 52px);
+    font-weight:700;
+    letter-spacing:-0.02em;
+    margin-bottom:10px;
+  }
+  .hero h1 .name-accent{color:var(--accent);}
+  .hero .role{
+    font-size:18px;
+    color:var(--text-dim);
+    margin-bottom:22px;
+  }
+  .hero .role strong{color:var(--text); font-weight:600;}
+  .hero .bio{
+    max-width:640px;
+    color:var(--text-dim);
+    font-size:15px;
+    margin-bottom:28px;
+  }
+  .hero .stats{
+    display:flex;
+    flex-wrap:wrap;
+    gap:28px;
+    font-family:var(--mono);
+    font-size:13px;
+  }
+  .hero .stats .stat b{
+    display:block;
+    font-size:20px;
+    color:var(--text);
+    font-weight:700;
+  }
+  .hero .stats .stat span{color:var(--text-faint);}
+  .hero .cta-row{
+    display:flex;
+    gap:12px;
+    margin-top:32px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    font-family:var(--mono);
+    font-size:13px;
+    padding:9px 16px;
+    border-radius:var(--radius);
+    border:1px solid var(--border);
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .btn:hover{background:var(--bg-hover); border-color:var(--text-faint);}
+  .btn.primary{background:var(--add-line); border-color:#1e4a2c; color:var(--add);}
+  .btn.primary:hover{background:#153a22; border-color:var(--add);}
+
+  /* ---------- layout ---------- */
+  .layout{
+    max-width:960px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:200px 1fr;
+    gap:0;
+  }
+  .file-tree{
+    padding:32px 20px 60px 24px;
+    border-right:1px solid var(--border);
+    position:sticky;
+    top:53px;
+    align-self:start;
+    height:calc(100vh - 53px);
+    font-family:var(--mono);
+    font-size:13px;
+  }
+  .file-tree .tree-label{
+    color:var(--text-faint);
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    font-size:11px;
+    margin-bottom:12px;
+  }
+  .file-tree a{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:var(--text-dim);
+    padding:6px 8px;
+    border-radius:4px;
+    margin-bottom:2px;
+  }
+  .file-tree a:hover, .file-tree a.active{
+    background:var(--bg-elevated);
+    color:var(--text);
+  }
+  .file-tree a .icon{color:var(--text-faint); font-size:12px;}
+  .file-tree a.active .icon{color:var(--accent);}
+
+  main{padding:0 24px 80px; min-width:0;}
+
+  /* ---------- diff file blocks ---------- */
+  .diff-file{
+    margin-top:40px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    overflow:hidden;
+    scroll-margin-top:70px;
+  }
+  .file-header{
+    background:var(--bg-elevated);
+    padding:12px 16px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--text-dim);
+    border-bottom:1px solid var(--border);
+  }
+  .file-header .fname{color:var(--text); font-weight:500;}
+  .file-header .badge{
+    margin-left:auto;
+    font-size:11px;
+    padding:2px 8px;
+    border-radius:20px;
+    background:var(--add-line);
+    color:var(--add);
+    border:1px solid #1e4a2c;
+  }
+  .diff-body{
+    font-family:var(--mono);
+    font-size:13.5px;
+    line-height:1.9;
+  }
+  .line{
+    display:flex;
+    padding:0 16px;
+    white-space:pre-wrap;
+    word-break:break-word;
+  }
+  .line .ln{
+    color:var(--text-faint);
+    width:26px;
+    flex-shrink:0;
+    user-select:none;
+    text-align:right;
+    margin-right:14px;
+  }
+  .line.add{background:var(--add-bg); color:#c6f6d5;}
+  .line.add .ln{color:#2f6b46;}
+  .line.add::before{content:"+"; color:var(--add); margin-right:8px; flex-shrink:0;}
+  .line.ctx{color:var(--text-dim);}
+  .line.ctx::before{content:" "; margin-right:8px;}
+  .line.ctx .ln{color:var(--text-faint);}
+  .line a{color:var(--accent); border-bottom:1px dotted var(--accent-dim);}
+  .line a:hover{border-bottom-style:solid;}
+  .diff-body{padding:10px 0;}
+
+  /* skills */
+  .skill-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(150px, 1fr));
+    gap:10px;
+    padding:16px;
+  }
+  .skill-chip{
+    background:var(--add-bg);
+    border:1px solid #1e4a2c;
+    color:#c6f6d5;
+    font-family:var(--mono);
+    font-size:12.5px;
+    padding:8px 12px;
+    border-radius:6px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .skill-chip .lvl{color:var(--add); font-size:11px;}
+
+  /* projects */
+  .project-card{margin-top:20px;}
+  .project-card:first-child{margin-top:0;}
+  .project-meta{
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+    padding:0 16px 14px;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--text-faint);
+  }
+  .project-meta a{color:var(--accent);}
+  .tech-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    padding:0 16px 16px;
+  }
+  .tech-tag{
+    font-family:var(--mono);
+    font-size:11px;
+    background:var(--bg-elevated);
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    padding:3px 9px;
+    border-radius:20px;
+  }
+
+  /* contact */
+  .env-line{color:#c6f6d5;}
+  .env-key{color:var(--purple);}
+  .env-eq{color:var(--text-faint);}
+  .env-val{color:var(--accent);}
+
+  footer{
+    max-width:960px;
+    margin:0 auto;
+    padding:40px 24px 60px;
+    border-top:1px solid var(--border);
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--text-faint);
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+  footer .term::before{content:"$ "; color:var(--add);}
+
+  /* responsive */
+  @media (max-width:800px){
+    .layout{grid-template-columns:1fr;}
+    .file-tree{
+      position:static;
+      height:auto;
+      border-right:none;
+      border-bottom:1px solid var(--border);
+      display:flex;
+      gap:6px;
+      overflow-x:auto;
+      padding:16px;
+    }
+    .file-tree .tree-label{display:none;}
+    .file-tree a{flex-shrink:0; margin-bottom:0;}
+    .hero .stats{gap:20px;}
+  }
+</style>
+</head>
+<body>
+
+  <!-- <div class="topbar">
+    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+    <span class="path">Anshu Chaurasiya <span class="slash">/</span> portfolio</span>
+    <span class="branch">
+      <svg viewBox="0 0 16 16"><path d="M9.5 3.25a2.25 2.25 0 1 1 3 2.122V6A2.5 2.5 0 0 1 10 8.5H6a1 1 0 0 0-1 1v1.128a2.251 2.251 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.5 0v1.836A2.492 2.492 0 0 1 6 7h4a1 1 0 0 0 1-1v-.628A2.25 2.25 0 0 1 9.5 3.25Z"/></svg>
+      main
+    </span>
+  </div> -->
+
+  <div class="hero">
+    <div class="eyebrow">~/portfolio<span class="cursor"></span></div>
+    <h1>Anshu <span class="name-accent">Chaurasiya</span></h1>
+    <p class="role">Computer Science Engineering student &middot; <strong>aspiring Software Engineer</strong></p>
+    <p class="bio">
+      I build things with code — from small automation scripts to full-stack web apps.
+      Currently deep in data structures, algorithms, and backend systems, and always
+      shipping side projects to learn faster than a classroom can teach.
+    </p>
+    <div class="stats">
+      <div class="stat"><b>2rd</b><span>year, CSE</span></div>
+      <div class="stat"><b>20+</b><span>projects shipped</span></div>
+      <div class="stat"><b>5</b><span>languages</span></div>
+      <div class="stat"><b>Open</b><span>to internships</span></div>
+    </div>
+    <div class="cta-row">
+      <a class="btn primary" href="#contact">View contact.md</a>
+      <a class="btn" href="https://github.com/S-Anshu3" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn" href="/6a6cb6fc691cd_Anshu_Chaurasiya_Resume.pdf" target="_blank" rel="noopener">Resume.pdf</a>
+    </div>
+  </div>
+
+  <div class="layout">
+    <nav class="file-tree" aria-label="Section navigation">
+      <div class="tree-label">Files changed</div>
+      <a href="#about"><span class="icon">📄</span> about.md</a>
+      <a href="#skills"><span class="icon">📄</span> skills.json</a>
+      <a href="#projects"><span class="icon">📁</span> projects/</a>
+      <a href="#education"><span class="icon">📄</span> education.md</a>
+      <a href="#contact"><span class="icon">📄</span> contact.md</a>
+    </nav>
+
+    <main>
+
+      <section id="about" class="diff-file">
+        <div class="file-header"><span class="fname">about.md</span><span class="badge">+8 −0</span></div>
+        <div class="diff-body">
+          <div class="line add"><span class="ln">1</span># About me</div>
+          <div class="line add"><span class="ln">2</span></div>
+          <div class="line add"><span class="ln">3</span>I'm a Computer Science Engineering undergrad who enjoys turning</div>
+          <div class="line add"><span class="ln">4</span>ideas into working software — whether that's a REST API, a CLI</div>
+          <div class="line add"><span class="ln">5</span>tool, or a full web app. I care about writing code that's clean,</div>
+          <div class="line add"><span class="ln">6</span>tested, and easy for the next person (often future-me) to read.</div>
+          <div class="line add"><span class="ln">7</span></div>
+          <div class="line add"><span class="ln">8</span>Goal: land a software engineering role where I can grow into a</div>
+        </div>
+      </section>
+
+      <section id="skills" class="diff-file">
+        <div class="file-header"><span class="fname">skills.json</span><span class="badge">+12 −0</span></div>
+        <div class="skill-grid">
+          <div class="skill-chip">Java <span class="lvl">●●●●○</span></div>
+          <div class="skill-chip">JavaScript <span class="lvl">●●●○○</span></div>
+          <div class="skill-chip">C++ <span class="lvl">●●●○○</span></div>
+          <div class="skill-chip">SQL <span class="lvl">●●●○○</span></div>
+          <div class="skill-chip">Node.js <span class="lvl">●●●○○</span></div>
+          <div class="skill-chip">Git &amp; GitHub <span class="lvl">●●●●●</span></div>
+          <div class="skill-chip">Data Structures <span class="lvl">●●●●○</span></div>
+          <div class="skill-chip">Algorithms <span class="lvl">●●●●○</span></div>
+          <div class="skill-chip">Linux <span class="lvl">●●●○○</span></div>
+          
+        </div>
+      </section>
+
+      <section id="projects" class="diff-file">
+        <div class="file-header"><span class="fname">projects/campus-connect.md</span><span class="badge">new file</span></div>
+        <div class="diff-body project-card">
+          <div class="line add"><span class="ln">1</span># Campus Connect</div>
+          <div class="line add"><span class="ln">2</span>A full-stack platform for students to find and join campus clubs,</div>
+          <div class="line add"><span class="ln">3</span>events, and study groups. Built the auth system, event feed, and</div>
+          <div class="line add"><span class="ln">4</span>a notification service using WebSockets.</div>
+        </div>
+        <div class="tech-row">
+          <span class="tech-tag">React</span><span class="tech-tag">Node.js</span><span class="tech-tag">MongoDB</span><span class="tech-tag">Socket.io</span>
+        </div>
+        <div class="project-meta">
+          <a href="https://github.com/S-Anshu3" target="_blank" rel="noopener">↳ https://github.com/S-Anshu3</a>
+          <a href="#" target="_blank" rel="noopener">↳ live demo</a>
+        </div>
+      </section>
+
+      <section class="diff-file">
+        <div class="file-header"><span class="fname">projects/task-flow-cli.md</span><span class="badge">new file</span></div>
+        <div class="diff-body project-card">
+          <div class="line add"><span class="ln">1</span># TaskFlow CLI</div>
+          <div class="line add"><span class="ln">2</span>A command-line task manager with priority queues, due-date</div>
+          <div class="line add"><span class="ln">3</span>reminders, and local JSON storage. Published as an installable</div>
+          <div class="line add"><span class="ln">4</span>pip package.</div>
+        </div>
+        <div class="tech-row">
+          <span class="tech-tag">Python</span><span class="tech-tag">Click</span><span class="tech-tag">SQLite</span>
+        </div>
+        <div class="project-meta">
+          <a href="https://github.com/S-Anshu3" target="_blank" rel="noopener">↳ https://github.com/S-Anshu3</a>
+        </div>
+      </section>
+
+      <section class="diff-file">
+        <div class="file-header"><span class="fname">projects/pathfinder-visualizer.md</span><span class="badge">new file</span></div>
+        <div class="diff-body project-card">
+          <div class="line add"><span class="ln">1</span># Pathfinder Visualizer</div>
+          <div class="line add"><span class="ln">2</span>An interactive tool that animates Dijkstra's, A*, and BFS/DFS</div>
+          <div class="line add"><span class="ln">3</span>pathfinding on a grid, built to help classmates understand</div>
+          <div class="line add"><span class="ln">4</span>graph algorithms visually.</div>
+        </div>
+        <div class="tech-row">
+          <span class="tech-tag">JavaScript</span><span class="tech-tag">HTML Canvas</span>
+        </div>
+      </section>
+
+      <section id="education" class="diff-file">
+        <div class="file-header"><span class="fname">education.md</span><span class="badge">+6 −0</span></div>
+        <div class="diff-body">
+          <div class="line add"><span class="ln">1</span>## B.E, Computer Science &amp; Engineering</div>
+          <div class="line add"><span class="ln">2</span>Chennai Institute of Technology; 2025 – 2029</div>
+          <div class="line ctx"><span class="ln">3</span>Relevant coursework: Data Structures &amp; Algorithms, OS,</div>
+          <div class="line ctx"><span class="ln">4</span>DBMS, Computer Networks, OOP</div>
+          <div class="line add"><span class="ln">5</span></div>
+        </div>
+      </section>
+
+      <section id="contact" class="diff-file">
+        <div class="file-header"><span class="fname">contact.md</span><span class="badge">+5 −0</span></div>
+        <div class="diff-body">
+          <div class="line add env-line"><span class="ln">1</span><span class="env-key">EMAIL</span><span class="env-eq">=</span><a href="mailto:aarav.sharma@example.com" class="env-val">anshuchaurasiya978@gmail.com</a></div>
+          <div class="line add env-line"><span class="ln">2</span><span class="env-key">GITHUB</span><span class="env-eq">=</span><a href="https://github.com/S-Anshu3" target="_blank" rel="noopener" class="env-val">github.com/S-Anshu3</a></div>
+          <div class="line add env-line"><span class="ln">3</span><span class="env-key">LINKEDIN</span><span class="env-eq">=</span><a href="https://www.linkedin.com/in/anshu-chaurasiya-074020388/" target="_blank" rel="noopener" class="env-val">linkedin.com/in/Anshu Chaurasiya</a></div>
+          <div class="line add env-line"><span class="ln">4</span><span class="env-key">LEETCODE</span><span class="env-eq">=</span><a href="https://leetcode.com/u/ANSHU9554/" target="_blank" rel="noopener" class="env-val">leetcode.com/Anshu Chaurasiya</a></div>
+          <div class="line add env-line"><span class="ln">5</span><span class="env-key">LOCATION</span><span class="env-eq">=</span><span class="chennai">Chennai, India</span></div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <span class="term">git commit -m "Always learning, always shipping"</span>
+    <span>&copy; 2026 Anshu chaurasiya</span>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.file-tree a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.querySelectorAll('.file-tree a').forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      });
+    });
+
+    const sections = document.querySelectorAll('main section[id], .hero + .layout section[id]');
+    const navLinks = document.querySelectorAll('.file-tree a');
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            navLinks.forEach(l => {
+              l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+            });
+          }
+        });
+      }, { rootMargin: '-30% 0px -60% 0px' });
+      document.querySelectorAll('section[id]').forEach(s => observer.observe(s));
+    }
+  </script>
+
+</body>
+</html>
